@@ -12,11 +12,11 @@ let isGameStarted = false
 start_btn.addEventListener('click', () => {
     score = 0
     input.setAttribute('disabled', 'true')
-    resultHeader.classList.add('hide')
-    timeHeader.classList.remove('hide')
+    hide(resultHeader)
+    show(timeHeader)
     setGameTime()
     isGameStarted = true
-    start_btn.classList.add('hide')
+    hide(start_btn)
     game_filed.style.backgroundColor = '#fff'
     let interval = setInterval(() => {
         let time_value = parseFloat(time.textContent)
@@ -60,15 +60,22 @@ const setGameTime = () => {
     time.textContent = input_value.toFixed(1)
 }
 
+const hide = (el) => {
+    el.classList.add('hide')
+}
+
+const show = (el) => {
+    el.classList.remove('hide')
+}
 
 const endGame = () => {
     input.removeAttribute('disabled')
     isGameStarted = false
-    start_btn.classList.remove('hide')
+    show(start_btn)
     game_filed.style.backgroundColor = '#ccc'
     game_filed.innerHTML = ''
-    timeHeader.classList.add('hide')
-    resultHeader.classList.remove('hide')
+    hide(timeHeader)
+    show(resultHeader)
     setGameScore()
 }
 
