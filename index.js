@@ -11,6 +11,7 @@ let isGameStarted = false
 
 start_btn.addEventListener('click', () => {
     score = 0
+    input.setAttribute('disabled', 'true')
     resultHeader.classList.add('hide')
     timeHeader.classList.remove('hide')
     setGameTime()
@@ -44,8 +45,8 @@ game_filed.addEventListener('click', (e) => {
     }
 })
 
-input.addEventListener('change', () => {
-    time.textContent = input.value.toFixed(1)
+input.addEventListener('input', () => {
+    setGameTime()
 })
 
 
@@ -55,11 +56,13 @@ const setGameScore = () => {
 }
 
 const setGameTime = () => {
-    time.textContent = input.value.toFixed(1)
+    let input_value = +input.value
+    time.textContent = input_value.toFixed(1)
 }
 
 
 const endGame = () => {
+    input.removeAttribute('disabled')
     isGameStarted = false
     start_btn.classList.remove('hide')
     game_filed.style.backgroundColor = '#ccc'
