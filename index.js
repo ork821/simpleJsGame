@@ -20,14 +20,23 @@ game_filed.addEventListener('click', (e) => {
 const renderBox = () => {
     game_filed.innerHTML = ''
     let box = document.createElement('div')
+    let boxSize = getRandom(30, 100)
+    let game_filed_size = game_filed.getBoundingClientRect()
+    let maxTop = game_filed_size.height - boxSize
+    let maxLeft = game_filed_size.width - boxSize
 
-    box.style.height = box.style.width = '50px'
+
+    box.style.height = box.style.width = boxSize + 'px'
     box.style.position = 'absolute'
     box.style.backgroundColor = 'black'
-    box.style.top = '50px'
-    box.style.left = '50px'
+    box.style.top = getRandom(0, maxTop) + 'px'
+    box.style.left = getRandom(0, maxLeft) + 'px'
     box.style.cursor = 'pointer'
     box.setAttribute('data-box', 'true')
 
     game_filed.insertAdjacentElement('afterbegin', box)
+}
+
+const getRandom = (min, max) => {
+    return Math.floor(Math.random() * (max-min) + min)
 }
