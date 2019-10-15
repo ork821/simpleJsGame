@@ -1,21 +1,44 @@
 let start_btn = document.querySelector('#start')
 let game_filed = document.querySelector('#game')
+let time = document.querySelector('#time')
 
 let score = 0
+let isGameStarted = false
 
 start_btn.addEventListener('click', () => {
+    isGameStarted = true
     start_btn.classList.add('hide')
     game_filed.style.backgroundColor = '#fff'
+    let interval = setInterval(() => {
+        let time_value = parseFloat(time.textContent)
+        if (time_value <= 0) {
+            // end game
+            clearInterval(interval)
+            endGame()
+
+        } else {
+            time.textContent = (time_value - 0.1).toFixed(1)
+        }
+
+    }, 100)
+
     renderBox()
 })
 
 game_filed.addEventListener('click', (e) => {
+    if (!isGameStarted) {
+        return
+    }
+
     if (e.target.dataset.box) {
         score++
         renderBox()
     }
 })
 
+const endGame = () => {
+    isGameStarted = false
+}
 
 const renderBox = () => {
     game_filed.innerHTML = ''
